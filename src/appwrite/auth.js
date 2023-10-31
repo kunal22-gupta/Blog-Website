@@ -1,4 +1,4 @@
-import config from "../config/config";
+import conf from "../conf/conf";
 import { Client, Account, ID } from "appwrite";
 
 class AuthService {
@@ -7,8 +7,8 @@ class AuthService {
 
     constructor() {
         this.client
-            .setEndpoint(config.appwriteUrl)
-            .setProject(config.appwriteProjectId);
+            .setEndpoint(conf.appwriteUrl)
+            .setProject(conf.appwriteProjectId);
         this.account = new Account(Client);
     }
     async createAccount({ email, password, name }) {
@@ -38,14 +38,14 @@ class AuthService {
         try {
             return await this.account.deleteSessions();
         } catch (error) {
-            throw error;
+            console.log("Appwrite service :: getCurrentUser :: error", error);
         }
     }
     async getCurrentUser() {
         try {
             return await this.account.get();
         } catch (error) {
-            throw error;
+            console.log("Appwrite service :: getCurrentUser :: error", error);
         }
         return null;
     }
